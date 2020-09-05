@@ -6,7 +6,10 @@
 	"license": "MIT",
 	"require": {
 		"php": ">=7.2",
-		"codeigniter4/framework": "^4"
+		"codeigniter4/framework": "^4",
+		"setasign/fpdf": "^1.8",
+		"phpoffice/phpspreadsheet": "^1.14",
+		"ovidentia/orgchart": "^0.13.10"
 	},
 	"require-dev": {
 		"fzaninotto/faker": "^1.9@dev",
