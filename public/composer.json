@@ -1,0 +1,15 @@
+{
+    "name": "rudidev89/packages",
+    "description": "Template",
+    "type": "library",
+    "require": {
+        "almasaeed2010/adminlte": "^3.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Romeo Delta",
+            "email": "romeodelta89@gmail.com"
+        }
+    ]
+}
