@@ -4,12 +4,14 @@
 	"description": "CodeIgniter4 starter app",
 	"homepage": "https://codeigniter.com",
 	"license": "MIT",
+	"minimum-stability":"dev",
 	"require": {
 		"php": ">=7.2",
 		"codeigniter4/framework": "^4",
 		"setasign/fpdf": "^1.8",
 		"phpoffice/phpspreadsheet": "^1.14",
-		"ovidentia/orgchart": "^0.13.10"
+		"ovidentia/orgchart": "^0.13.10",
+		"firebase/php-jwt": "dev-master"
 	},
 	"require-dev": {
 		"fzaninotto/faker": "^1.9@dev",

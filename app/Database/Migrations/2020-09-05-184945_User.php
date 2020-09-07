@@ -20,13 +20,13 @@ class User extends Migration
 		]);
 		$this->forge->addPrimaryKey('id');
 		$this->forge->addUniqueKey('email');
-		$this->forge->createTable('users',true);
+		$this->forge->createTable('userstest',true);
 	}
 
 	//--------------------------------------------------------------------
 
 	public function down()
 	{
-		$this->forge->dropTable('users', true);
+		$this->forge->dropTable('userstest', true);
 	}
 }
