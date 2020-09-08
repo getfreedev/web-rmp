@@ -1,6 +1,10 @@
 <?php
 
-$routes->group('/', function($routes){
+$routes->get('/',function(){
+	return view("Rudi\\Views\\home");
+});
+
+$routes->group('/',['namespace'=>'Rudi\Controllers'], function($routes){
 	$routes->get('register','Authentication::register',['as'=>'register']);
 	$routes->post('register','Authentication::attRegister');
 
