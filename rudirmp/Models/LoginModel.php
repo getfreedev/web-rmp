@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace Rudi\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model
+class LoginModel extends Model
 {
-	protected $table      = 'users';
+	protected $table      = 'logins';
 	protected $primaryKey = 'id';
 	protected $useAutoIncrement = true;
 
@@ -18,7 +18,7 @@ class UserModel extends Model
 	protected $allowedFields  = [];
 
 	// Dates
-	protected $useTimestamps = false;
+	protected $useTimestamps = true;
 	protected $dateFormat    = 'datetime';
 	protected $createdField  = 'created_at';
 	protected $updatedField  = 'updated_at';
@@ -26,7 +26,7 @@ class UserModel extends Model
 	protected $protectFields = true;
 
 	// Validation
-	protected $validationRules      = [];
+	protected $validationRules      = ['email'=>'required|valid_email','password'=>'required'];
 	protected $validationMessages   = [];
 	protected $skipValidation       = false;
 	protected $cleanValidationRules = true;
@@ -41,4 +41,12 @@ class UserModel extends Model
 	protected $afterFind      = [];
 	protected $beforeDelete   = [];
 	protected $afterDelete    = [];
+
+	public function rememberUser(array $data):bool
+	{
+		if(!isset($data['email'])||!isset($data['password'])) return false;
+		
+		$user = new UserModel();
+
+	}
 }

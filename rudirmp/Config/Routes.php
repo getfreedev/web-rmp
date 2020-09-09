@@ -11,7 +11,7 @@ $routes->group('/',['namespace'=>'Rudi\Controllers'], function($routes){
 	$routes->get('login','Authentication::login',['as'=>'login']);
 	$routes->post('login','Authentication::attLogin');
 
-	$routes->get('forgot','Authentication::forgot',['as'=>'forgot']);
-	$routes->post('forgot','Authentication::attForgot');
+	$routes->get('forgot-password','Authentication::forgot',['as'=>'forgot']);
+	$routes->post('forgot-password','Authentication::attForgot');
 
 });

@@ -3,25 +3,25 @@
 namespace Rudi\Controllers;
 
 use Rudi\Controllers\BaseController;
+use Rudi\Models\LoginModel;
+use Rudi\Models\UserModel;
 
 class Authentication extends BaseController
 {
 	protected $user;
+	protected $login;
 
 	public function __construct()
 	{
-		$this->user = new \Rudi\Models\UserModel();
+		$this->user = new UserModel();
+		$this->login = new LoginModel();
 	}
 
-	private function view(string $name, array $data = [], array $option = [])
+	private function view(string $name)
 	{
-		$data = [
-			'title' => $name,
-			'valid' => $this->validation,
-		];
-		return view("Rudi\\Views\\auth\\$name", $data, $option);
+		return view("Rudi\\Views\\auth\\$name", ['title' => $name,'valid' => $this->validation]);
 	}
-	
+
 	//--------------------------------------------------------------------
 
 	public function register()
@@ -31,17 +31,12 @@ class Authentication extends BaseController
 
 	public function attRegister()
 	{
-		$rule = [
-			'username' => 'required|min_length[3]',
-			'emai' => 'required|valid_email',
-			'password' => 'required|min_length[6]',
-			'repassword' => 'required|matches[password]',
-		];
-		if (!$this->validate($rule || !$this->user->save($this->request->getPost()))) {
+		if (!$this->validate($this->user->getValidationRules()) || !$this->user->save($this->request->getPost())) {
 			return \redirect()->back()->withInput()->withCookies();
 		}
+		return \redirect()->to('login')->withInput()->withCookies();
 	}
-	
+
 	//--------------------------------------------------------------------
 
 	public function login()
@@ -52,14 +47,25 @@ class Authentication extends BaseController
 	public function attLogin()
 	{
 		$rule = [
-			'emai' => 'required|valid_email',
+			'email' => 'required|valid_email',
 			'password' => 'required',
 		];
-		if (!$this->validate($rule || !$this->user->save($this->request->getPost()))) {
+
+		if (!$this->validate($rule) || !$this->user->isUser($this->request->getPost())) {
 			return \redirect()->back()->withInput()->withCookies();
 		}
 	}
-	
+
 	//--------------------------------------------------------------------
 
+	public function forgot()
+	{
+		return $this->view('forgot-password');
+	}
+	public function attForgot()
+	{
+		if (!$this->validate(['email' => 'required|valid_email']) || !$this->user->isUser($this->request->getPost())) {
+			return \redirect()->back()->withInput()->withCookies();
+		}
+	}
 }

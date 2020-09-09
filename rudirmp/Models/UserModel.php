@@ -3,6 +3,7 @@
 namespace Rudi\Models;
 
 use CodeIgniter\Model;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class UserModel extends Model
 {
@@ -14,11 +15,11 @@ class UserModel extends Model
 	protected $DBGroup  = 'default';
 
 	protected $returnType     = 'array';
-	protected $useSoftDeletes = false;
-	protected $allowedFields  = [];
+	protected $useSoftDeletes = true;
+	protected $allowedFields  = ['username','email','password'];
 
 	// Dates
-	protected $useTimestamps = false;
+	protected $useTimestamps = true;
 	protected $dateFormat    = 'datetime';
 	protected $createdField  = 'created_at';
 	protected $updatedField  = 'updated_at';
@@ -26,19 +27,40 @@ class UserModel extends Model
 	protected $protectFields = true;
 
 	// Validation
-	protected $validationRules      = [];
+	protected $validationRules      = [
+		'username' 	=> 'required|min_length[3]',
+		'emai' 		=> 'required|valid_email',
+		'password' 	=> 'required|min_length[6]',
+		'repassword'=> 'required|matches[password]',
+	];
 	protected $validationMessages   = [];
 	protected $skipValidation       = false;
 	protected $cleanValidationRules = true;
 
 	// Callbacks
 	protected $allowCallbacks = true;
-	protected $beforeInsert   = [];
+	protected $beforeInsert   = ['hashPassword'];
 	protected $afterInsert    = [];
-	protected $beforeUpdate   = [];
+	protected $beforeUpdate   = ['hashPassword'];
 	protected $afterUpdate    = [];
 	protected $beforeFind     = [];
 	protected $afterFind      = [];
 	protected $beforeDelete   = [];
 	protected $afterDelete    = [];
+
+	private function hashPassword(array $data)
+	{
+		if(!isset($data['data']['password'])) return $data;
+		$data['data']['password_hash'] = \password_hash($data['data']['password'], \PASSWORD_DEFAULT);
+		unset($data['data']['password']);
+
+		return $data;
+	}
+
+	public function isUser(array $data)
+	{
+		if(!isset($data['email']) || !isset($data['password'])) return false;
+
+		return \password_verify($data['password'],$this->where('email',$data['email'])->first()['password_hash']);
+	}
 }
