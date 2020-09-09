@@ -1,1 +1,0 @@
-<?= $this->extend('template/layout'); ?>

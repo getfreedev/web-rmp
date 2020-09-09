@@ -5,7 +5,7 @@ use CodeIgniter\Controller;
 
 class BaseController extends Controller
 {
-	protected $helpers = ['cookie','date','html', 'form'];
+	protected $helpers = ['cookie','date','html', 'form', 'auth'];
 	public $session;
 	public $validation;
 

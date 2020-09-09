@@ -26,8 +26,7 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-
-	 protected $helpers = [];
+	protected $helpers = [];
 
 	/**
 	 * Constructor.
@@ -42,7 +41,6 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// E.g.:
 		// $this->session = \Config\Services::session();
-		// $this->validation = \Config\Services::validation();
 	}
 
 }
