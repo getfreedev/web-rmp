@@ -1,6 +1,4 @@
-<?php
-
-namespace Rudi\Controllers;
+<?php namespace Rudi\Controllers;
 
 use Rudi\Controllers\BaseController;
 use Rudi\Models\LoginModel;

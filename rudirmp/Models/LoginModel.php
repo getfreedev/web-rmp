@@ -42,7 +42,7 @@ class LoginModel extends Model
 	protected $beforeDelete   = [];
 	protected $afterDelete    = [];
 
-	public function rememberUser(array $data):bool
+	public function rememberUser(array $data)
 	{
 		if(!isset($data['email'])||!isset($data['password'])) return false;
 		

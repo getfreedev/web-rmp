@@ -4,6 +4,10 @@ $routes->get('/',function(){
 	return view("Rudi\\Views\\home");
 });
 
+$routes->group('test',['namespace'=>'Rudi\Controllers'],function($routes){
+	$routes->get('respon','Test::index');
+});
+
 $routes->group('/',['namespace'=>'Rudi\Controllers'], function($routes){
 	$routes->get('register','Authentication::register',['as'=>'register']);
 	$routes->post('register','Authentication::attRegister');
